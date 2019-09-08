@@ -10,14 +10,14 @@ var tbody = d3.select("tbody");
 // send data from data.js to console.log
 console.log(data);
 
-data.forEach(function(ufoSighting) {
+tableData.forEach(function(ufoSighting) {
   console.log(ufoSighting);
   
   var row = tbody.append("tr");
   Object.entries(ufoSighting).forEach(function([key, value]) {
     console.log(key, value);
     
-    var cell = tbody.append("td");
+    var cell = row.append("td");
     cell.text(value);
   });
 });
@@ -35,8 +35,25 @@ submit.on("click", function() {
   var inputValue = inputElement.property("value");
   
   // filter data based on user input
+  var rows = d3.select('tbody').selectAll('tr')
+  rows.remove()
+
   var filteredData = tableData.filter(tableData => tableData.datetime === inputValue);
   
+  var tbody = d3.select("tbody");
+  filteredData.forEach(function(ufoSighting) {
+    console.log(ufoSighting);
+      
+    var row = tbody.append("tr");
+    Object.entries(ufoSighting).forEach(function([key, value]) {
+      console.log(key, value);
+        
+      var cell = row.append("td");
+      cell.text(value);
+      });
+    });
+  
+
   console.log(filteredData);
   
 });
